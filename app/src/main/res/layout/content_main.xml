@@ -8,32 +8,52 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:layout_marginTop="20dp"
+
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Calculadora"
-            android:id="@+id/buttonOpenCalculardora"
-            android:onClick="OpenCalculadora"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Api__Rest__CEP"
-            android:layout_marginTop="20dp"
-            android:id="@+id/buttonOpenApiCep"
-            android:onClick="OpenRestApiCep"
-
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-    </android.support.v7.widget.LinearLayoutCompat>
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Calculadora"
+                android:id="@+id/buttonOpenCalculardora"
+                android:onClick="OpenCalculadora"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Api__Rest__CEP"
+                android:layout_marginTop="20dp"
+                android:id="@+id/buttonOpenApiCep"
+                android:onClick="OpenRestApiCep"
+
+                />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Exemp. Cadasto com Validação"
+                android:layout_marginTop="20dp"
+                android:id="@+id/buttonOpenCadastro"
+                android:onClick="OpenCadasto"
+
+                />
+
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
 
 
 </android.support.constraint.ConstraintLayout>

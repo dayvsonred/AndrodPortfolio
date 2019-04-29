@@ -47,4 +47,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(It);
 
     }
+
+    public void OpenCadasto(View view) {
+
+        Intent It = new Intent(MainActivity.this , CadastroActivity.class);
+        startActivity(It);
+    }
 }
