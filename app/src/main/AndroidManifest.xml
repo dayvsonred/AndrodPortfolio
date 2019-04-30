@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ListClientesActivity"
+            android:label="@string/title_activity_list_clientes"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".CadastroActivity"
             android:label="@string/title_activity_cadastro"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ApiRestCepActivity"
             android:label="@string/title_activity_api_rest_cep"

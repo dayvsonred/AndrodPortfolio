@@ -49,6 +49,16 @@
 
                 />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Lista Clientes - DB Local"
+                android:layout_marginTop="20dp"
+                android:id="@+id/buttonOpenListCliente"
+                android:onClick="OpenListCliente"
+
+                />
+
 
         </android.support.v7.widget.LinearLayoutCompat>
 

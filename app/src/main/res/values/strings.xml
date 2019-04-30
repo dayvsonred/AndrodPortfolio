@@ -4,4 +4,5 @@
     <string name="title_activity_calculadora">CalculadoraActivity</string>
     <string name="title_activity_api_rest_cep">ApiRestCepActivity</string>
     <string name="title_activity_cadastro">CadastroActivity</string>
+    <string name="title_activity_list_clientes">ListClientesActivity</string>
 </resources>

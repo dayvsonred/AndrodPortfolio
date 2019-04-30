@@ -85,4 +85,10 @@ public class MainActivity extends AppCompatActivity {
         Intent It = new Intent(MainActivity.this , CadastroActivity.class);
         startActivity(It);
     }
+
+    public void OpenListCliente(View view) {
+
+        Intent It = new Intent(MainActivity.this , ListClientesActivity.class);
+        startActivity(It);
+    }
 }
