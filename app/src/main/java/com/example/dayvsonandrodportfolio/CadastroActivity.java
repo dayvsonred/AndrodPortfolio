@@ -1,6 +1,10 @@
 package com.example.dayvsonandrodportfolio;
 
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +19,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dayvsonandrodportfolio.database.DadosOpenHelper;
+import com.example.dayvsonandrodportfolio.dominio.entidade.Cliente;
+import com.example.dayvsonandrodportfolio.dominio.repositorio.ClienteRepositorio;
+
 import java.util.regex.Pattern;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -23,6 +31,15 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText edtTel;
     private EditText edtEnder;
     private EditText edtEmail;
+
+    private SQLiteDatabase conexao;
+    private DadosOpenHelper dadosOpenHelper;
+
+    private CoordinatorLayout layoutContatinCadastro;
+
+    private ClienteRepositorio clienteRepositorio;
+
+    private Cliente cliente;
 
 
     @Override
@@ -46,6 +63,10 @@ public class CadastroActivity extends AppCompatActivity {
         edtEmail = (EditText) findViewById(R.id.edt_email) ;
         edtEnder = (EditText) findViewById(R.id.edt_enderec) ;
 
+        layoutContatinCadastro = (CoordinatorLayout) findViewById(R.id.layoutContatinCadastro);
+
+        CreateConexao();
+
 
     }
 
@@ -67,7 +88,7 @@ public class CadastroActivity extends AppCompatActivity {
         switch (ID){
              case R.id.action_ok:
                 Toast.makeText(this, "Cadastrando Cliente", Toast.LENGTH_SHORT).show();
-                vaild_camps();
+                 confimar();
              break;
 
             case R.id.action_cancel:
@@ -82,12 +103,19 @@ public class CadastroActivity extends AppCompatActivity {
 
 
 
-    private void vaild_camps(){
+    private boolean vaild_camps(){
         String nome = edtNome.getText().toString();
         String tel = edtTel.getText().toString();
         String ender = edtEnder.getText().toString();
         String email = edtEmail.getText().toString();
         boolean res = false;
+
+        cliente.nome = nome;
+        cliente.telefone = tel;
+        cliente.email = email;
+        cliente.endereco = ender;
+
+
 
         if(res = (isCampoVasio(nome)) ){
             edtNome.requestFocus();
@@ -110,14 +138,16 @@ public class CadastroActivity extends AppCompatActivity {
             dlg.setNeutralButton("ok",null);
             dlg.show();
 
-        }else{
+        }/*else{
             Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
             edtEnder.setText(null);
             edtNome.setText(null);
             edtEmail.setText(null);
             edtTel.setText(null);
             edtNome.requestFocus();
-        }
+        }*/
+
+        return res;
     }
 
     private boolean isCampoVasio(String valor){
@@ -128,6 +158,59 @@ public class CadastroActivity extends AppCompatActivity {
     private boolean isEmailValido(String email){
         boolean Result = (!isCampoVasio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
         return Result;
+    }
+
+
+    private void confimar(){
+
+        cliente = new Cliente();
+
+        if(vaild_camps() == false){
+            try {
+                clienteRepositorio.inserir(cliente);
+                Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+                edtEnder.setText(null);
+                edtNome.setText(null);
+                edtEmail.setText(null);
+                edtTel.setText(null);
+                edtNome.requestFocus();
+                finish();
+            }
+            catch (SQLException ex){
+                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                dlg.setTitle("Erro");
+                dlg.setMessage(ex.getMessage());
+                dlg.setNeutralButton("ok", null);
+                dlg.show();
+
+
+            }
+
+        }
+
+    }
+
+
+    private void CreateConexao(){
+
+        try {
+            dadosOpenHelper = new DadosOpenHelper(this);
+            conexao = dadosOpenHelper.getWritableDatabase();
+            Snackbar.make(layoutContatinCadastro, "Conexão criada com sucesso",Snackbar.LENGTH_SHORT)
+                    .setAction("ok", null).show();
+
+            clienteRepositorio = new ClienteRepositorio(conexao);
+
+        }catch (SQLException ex){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro");
+            dlg.setMessage(ex.getMessage());
+            dlg.setNeutralButton("ok", null);
+            dlg.show();
+
+
+        }
+
     }
 
 
