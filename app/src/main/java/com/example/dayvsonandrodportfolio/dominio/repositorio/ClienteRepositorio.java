@@ -83,7 +83,7 @@ public class ClienteRepositorio {
             }while (resultado.moveToNext());
         }
 
-        return null;
+        return clientes;
     }
 
     public Cliente buscarCliente(int codigo){
